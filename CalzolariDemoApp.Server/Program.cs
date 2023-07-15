@@ -1,6 +1,8 @@
 using Calzolari.Grpc.AspNetCore.Validation;
+using CalzolariDemoApp.Server;
 using CalzolariDemoApp.Server.Greetings;
 using CalzolariDemoApp.Server.Services;
+using FluentValidation;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,14 @@ builder.Services.AddGrpc(opt => opt.EnableMessageValidation());
 builder.Services.AddMediatR(c => c.RegisterServicesFromAssemblyContaining<Program>());
 builder.Services.AddGrpcValidation();
 
+// Second approach to validate
+// builder.Services.AddInlineValidator<HelloRequest>(rules =>
+// {
+//     rules.RuleFor(request => request.FirstName).NotEmpty().MinimumLength(3);
+//     rules.RuleFor(request => request.LastName).NotEmpty().MinimumLength(3);
+// });
+
+// First approach to validate
 builder.Services.AddValidator<HelloRequestValidator>();
 
 var app = builder.Build();

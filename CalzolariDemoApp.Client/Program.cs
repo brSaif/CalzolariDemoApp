@@ -1,5 +1,6 @@
 // IoC way to use gRPC clients.
 
+using Calzolari.Grpc.Net.Client.Validation;
 using Grpc.Core;
 using Grpc.Net.Client;
 using GrpcService1;
@@ -17,7 +18,7 @@ using var channel = GrpcChannel.ForAddress(
 
 
 var greeterClient = new Greeter.GreeterClient(channel);
-var greetRequest = new HelloRequest(){FirstName ="Se", LastName = "ed"};
+var greetRequest = new HelloRequest(){FirstName ="Se", LastName = "ed"}; 
 
 try
 {
@@ -27,6 +28,6 @@ try
 }
 catch (RpcException e)
 {
-    // var errors = e.GetValidationErrors();
-    Console.WriteLine(e);
+    var errors = e.GetValidationErrors();
+    Console.WriteLine(e.Message);
 }

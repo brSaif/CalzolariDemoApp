@@ -7,7 +7,7 @@ public record HellooRequest(string FirstName, string LastName) : IRequest<HelloR
 
 public record HelloResponse(string Message);
 
-public class HelloRequestValidator : AbstractValidator<HellooRequest>
+public class HelloRequestValidator : AbstractValidator<HelloRequest>
 {
     public HelloRequestValidator()
     {
